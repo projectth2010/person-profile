@@ -1,0 +1,99 @@
+version: '3.8'
+services:
+  auth-service:
+    build: ./services/auth-service
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - MONGO_URI=mongodb://mongo:27017/auth_db
+      - JWT_SECRET=your_jwt_secret_key
+    ports:
+      - "3001:3001"
+
+  profile-service:
+    build: ./services/profile-service
+    environment:
+      - NODE_ENV=production
+      - PORT=3003
+      - MONGO_URI=mongodb://mongo:27017/profile_db
+    ports:
+      - "3003:3003"
+
+  profile-score-service:
+    build: ./services/profile-score-service
+    environment:
+      - NODE_ENV=production
+      - PORT=3005
+      - MONGO_URI=mongodb://mongo:27017/profile_score_db
+    ports:
+      - "3005:3005"
+
+  profile-album-service:
+    build: ./services/profile-album-service
+    environment:
+      - NODE_ENV=production
+      - PORT=3007
+      - MONGO_URI=mongodb://mongo:27017/profile_album_db
+    ports:
+      - "3007:3007"
+
+  profile-address-service:
+    build: ./services/profile-address-service
+    environment:
+      - NODE_ENV=production
+      - PORT=3009
+      - MONGO_URI=mongodb://mongo:27017/profile_address_db
+    ports:
+      - "3009:3009"
+
+  profile-social-media-service:
+    build: ./services/profile-social-media-service
+    environment:
+      - NODE_ENV=production
+      - PORT=3011
+      - MONGO_URI=mongodb://mongo:27017/profile_social_media_db
+    ports:
+      - "3011:3011"
+
+  profile-status-of-working-service:
+    build: ./services/profile-status-of-working-service
+    environment:
+      - NODE_ENV=production
+      - PORT=3013
+      - MONGO_URI=mongodb://mongo:27017/profile_status_of_working_db
+    ports:
+      - "3013:3013"
+
+  profile-writer-service:
+    build: ./services/profile-writer-service
+    environment:
+      - NODE_ENV=production
+      - PORT=3015
+      - MONGO_URI=mongodb://mongo:27017/profile_writer_db
+      - PROFILE_SCORE_SERVICE_URL=http://profile-score-service:3005
+    ports:
+      - "3015:3015"
+
+  mongo:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - auth-service
+      - profile-service
+      - profile-score-service
+      - profile-album-service
+      - profile-address-service
+      - profile-social-media-service
+      - profile-status-of-working-service
+      - profile-writer-service
+
+volumes:
+  mongo-data:
