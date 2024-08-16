@@ -1,0 +1,17 @@
+{
+  "name": "person-profile",
+  "version": "1.0.0",
+  "description": "This project consists of multiple microservices for managing user profiles, including authentication, profile information, profile scores, albums, addresses, social media contacts, status of working, and writer content.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^9.6.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7"
+  }
+}
